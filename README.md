@@ -13,19 +13,9 @@ The project is focused on calculating real-time metrics, including:
 
 The Concurrent Pipeline Architecture
 
-Component               Role in Web Analysis            Concurrency Mechanism  
-Producer (main thread)  Reads raw log lines quickly         std::ifstream
-                        from disk (simulating 
-                        high-speed I/O).
-
-SafeQueue (SafeQueue.h) Holds raw log lines awaiting     std::mutex & 
-                        processing. This is the         std::condition_variable
-                        synchronization point. 
-
-Consumers (ThreadPool)  CPU-Intensive Task: Each thread       std::thread
-                        pulls a line, performs heavy          std::function
-                        parsing (regex, string manipulation), 
-                        extracts fields (IP, Status, Path),
-                        and updates global metrics.
+Component 
+  - Producer (main thread): Reads raw log lines quickly from disk,  std::ifstream
+  - SafeQueue (SafeQueue.h): Holds raw log lines awaiting processing. This is the synchronization point, using std::mutex & std::condition_variable
+  - Consumers (ThreadPool): CPU-Intensive Task: Each thread pulls a line, parses (regex, string manipulation), extracts fields (IP, Status, Path), and updates global metrics       
 
 This design ensures the I/O thread is never blocked by complex data manipulation, maximizing the ingestion rate.

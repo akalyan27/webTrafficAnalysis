@@ -38,8 +38,10 @@ struct PipeState {
 };
 
 struct BirdState {
-    float x = 20.0f;    // Fixed horizontal position (in world coordinates)
-    float y = 10.0f;    // Vertical position
+    // CHANGED: Bird position moved to the left (from 20.0f to 8.0f)
+    // This gives more reaction time for incoming pipes
+    float x = 8.0f;     // Fixed horizontal position (in world coordinates)
+    float y = 10.0f;    // Vertical position (centered)
     float y_vel = 0.0f; // Vertical velocity
     bool is_alive = true;
     int score = 0;

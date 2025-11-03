@@ -174,16 +174,14 @@ int main() {
                 // Center the text
                 sf::FloatRect textRect = game_over_text.getLocalBounds();
                 game_over_text.setOrigin(sf::Vector2f(textRect.size.x / 2.0f, textRect.size.y / 2.0f));
-                game_over_text.setPosition(sf::Vector2f(WINDOW_WIDTH/2.0f, WINDOW_HEIGHT/2.0f));
+                game_over_text.setPosition(sf::Vector2f(WINDOW_WIDTH/4.0f, WINDOW_HEIGHT/2.0f));
                 window.draw(game_over_text);
             }
         }
 
-        // Display the rendered frame
         window.display();
     }
     
-    // 4. Cleanup and Join - CRITICAL ORDER MATTERS
     std::cout << "[System] Signaling workers to stop and joining threads...\n";
     
     // STEP 1: Stop accepting new commands - signals workers to exit their loops

@@ -1,5 +1,4 @@
-/*
-The generic, thread-safe bounded buffer that decouples the 
+/* The generic, thread-safe bounded buffer that decouples the 
 I/O thread (Producer) from the CPU worker threads (Consumers).
 */
 
@@ -23,14 +22,6 @@ public:
         std::unique_lock<std::mutex> lock(m_mutex);
         if (m_stop) return;
 
-        //m_queue.push(item)
-        /* lesson
-        we use std::move to avoid making an extra copy of the item
-        -  the parameter would be a copy but std::move treats the item 
-            as if it werea temporary object 
-        - essentially says the object on the right is going to go away 
-           so you can steal its internal pointers or memory so no need to copy
-        */ 
         m_queue.push(std::move(item));
         m_condition.notify_one();
     }
@@ -52,7 +43,7 @@ public:
         // store popped element in the reference parameter
         item = std::move(m_queue.front());
         m_queue.pop();
-        return true
+        return true; 
     }
 
     /**
